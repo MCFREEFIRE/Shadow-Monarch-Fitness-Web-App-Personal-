@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shadow Monarch System</title>
+
+<style>
+body{
+margin:0;
+background:radial-gradient(circle,#0a1a2a,#000);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+color:white;
+min-height:100vh;
+}
+
+/* TOP MENU */
+.menu{
+display:flex;
+justify-content:space-around;
+background:#081624;
+padding:14px 0;
+box-shadow:0 0 15px rgba(0,200,255,.5);
+position:sticky;
+top:0;
+z-index:10;
+}
+
+.menu button{
+background:none;
+border:none;
+color:#00c8ff;
+font-size:16px;
+font-weight:bold;
+}
+
+/* SCREENS */
+.screen{
+display:none;
+padding:20px;
+}
+
+.active{
+display:block;
+}
+
+/* QUEST BOARD */
+.board{
+max-width:420px;
+margin:20px auto;
+background:linear-gradient(180deg,#0f2c4c,#081624);
+border-radius:18px;
+padding:25px;
+box-shadow:0 0 30px rgba(0,200,255,.6);
+}
+
+.title{
+text-align:center;
+font-size:20px;
+margin-bottom:10px;
+}
+
+.subtitle{
+text-align:center;
+font-size:14px;
+opacity:.8;
+margin-bottom:20px;
+}
+
+.goal{
+text-align:center;
+color:#00ff66;
+font-weight:bold;
+font-size:18px;
+margin-bottom:20px;
+}
+
+.quest{
+display:flex;
+justify-content:space-between;
+font-size:15px;
+margin:12px 0;
+padding:8px 0;
+border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.complete{ color:#00ff66; }
+.incomplete{ color:#ff4c4c; }
+
+.warning{
+margin-top:20px;
+color:#ff3b3b;
+font-size:14px;
+text-align:center;
+}
+
+.clock{
+text-align:center;
+margin-top:15px;
+font-size:14px;
+opacity:.8;
+}
+
+button.main{
+width:100%;
+margin-top:15px;
+padding:14px;
+border:none;
+border-radius:10px;
+background:#00c8ff;
+font-size:16px;
+font-weight:bold;
+}
+
+/* TIMETABLE SCREEN */
+.timetable{
+max-width:520px;
+margin:20px auto;
+background:#081624;
+border-radius:18px;
+padding:22px;
+box-shadow:0 0 20px rgba(0,200,255,.4);
+line-height:1.8;
+font-size:15px;
+white-space:pre-line;
+}
+.section-title{
+color:#00ffcc;
+font-weight:bold;
+margin-top:15px;
+}
+</style>
+</head>
+<body>
+
+<div class="menu">
+<button onclick="showScreen('quest')">Quest Board</button>
+<button onclick="showScreen('timetable')">Time Table</button>
+</div>
+
+<!-- QUEST SCREEN -->
+<div id="quest" class="screen active">
+<div class="board">
+
+<div class="title">⚠️ QUEST DIRECTIONS</div>
+<div class="subtitle">Daily Master System -“ Becoming Powerful”</div>
+
+<div class="goal">GOAL: COMPLETE ALL DAILY MISSIONS</div>
+
+<div id="quests"></div>
+
+<button class="main" onclick="completeToday()">MARK DAY COMPLETE</button>
+
+<div class="warning">
+Failing to complete this daily quest slows transformation.
+Consistency builds power.
+</div>
+
+<div class="clock" id="clock"></div>
+
+</div>
+</div>
+
+<!-- TIMETABLE SCREEN -->
+<div id="timetable" class="screen">
+<div class="timetable">
+
+ðŸ•’ DAILY MASTER TIMETABLE
+
+ðŸŒ… 5:00 AM â€“ Wake Up
+1 glass water
+Brush / washroom
+3 min mobility
+
+ðŸƒ 5:30 AM â€“ Morning Run (2 KM)
+400m slow jog
+1.2 km steady
+400m strong finish
+Time target: 12â€“15 minutes
+Stretch after run:
+Hamstrings â€“ 30 sec each
+Quads â€“ 30 sec each
+Calves â€“ 30 sec each
+
+ðŸ³ 8:00 AM â€“ Breakfast
+100g paneer OR sprouts bowl
+1 fruit
+No sugar drinks
+
+ðŸ› 1:30 PM â€“ Lunch
+2 chapati
+1 bowl dal
+1 bowl sabzi
+Big salad
+
+ðŸ‹ï¸ 5:00 PM â€“ EVENING STRENGTH TRAINING
+
+Monday â€“ Chest & Core
+Pushups â€“ 4 Ã— max
+Wide pushups â€“ 3 Ã— 12
+Diamond pushups â€“ 3 Ã— 8
+Plank â€“ 3 Ã— 1 min
+Leg raises â€“ 3 Ã— 12
+
+Tuesday â€“ Legs
+Squats â€“ 4 Ã— 25
+Jump squats â€“ 3 Ã— 15
+Lunges â€“ 3 Ã— 12 each
+Wall sit â€“ 3 Ã— 1 min
+
+Wednesday â€“ Core + Burn
+Mountain climbers â€“ 3 Ã— 40 sec
+Bicycle crunch â€“ 3 Ã— 20
+Plank â€“ 3 Ã— 1 min
+Burpees â€“ 3 Ã— 10
+
+Thursday â€“ Upper Body
+Pushups â€“ 4 Ã— max
+Chair dips â€“ 3 Ã— 12
+Pike pushups â€“ 3 Ã— 10
+Shoulder taps â€“ 3 Ã— 20
+
+Friday â€“ HIIT (5 Rounds)
+10 burpees
+20 squats
+10 pushups
+30 sec climbers
+1 min rest
+
+Saturday â€“ Sprint Day
+Warmup jog 5 min
+8 rounds:
+20 sec fast
+40 sec walk
+5 min stretch
+
+Sunday â€“ Full Rest
+Light walking only
+
+ðŸ“ˆ PROGRESSION RULE
+Pushups +2 weekly
+Squats +5 weekly
+Plank +10 sec
+Burpees +2
+
+ðŸ’¤ Sleep 9:45â€“10 PM (Non-negotiable)
+
+ðŸ’§ DAILY RULES
+10,000+ steps
+3â€“4L water
+No junk (once/month max)
+No daytime bed lying
+
+ðŸ“Š EXPECTED RESULTS
+Month 1 â†’ 75 kg
+Month 2 â†’ 72 kg
+Month 3 â†’ 69â€“70 kg
+Pushups 10 âž 40+
+Chest tighter
+Stomach flatter
+Face sharper
+
+</div>
+</div>
+
+<script>
+function showScreen(id){
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+/* ===== QUEST SYSTEM (UNCHANGED) ===== */
+
+let today = new Date();
+let dayName = today.toLocaleDateString('en-US',{weekday:'long'});
+let dateKey = today.toDateString();
+
+let data = JSON.parse(localStorage.getItem("questData")) || {};
+if(!data[dateKey]){
+data[dateKey] = {completed:false};
+}
+localStorage.setItem("questData",JSON.stringify(data));
+
+function updateClock(){
+let now = new Date();
+document.getElementById("clock").innerHTML =
+dayName + " | " + now.toLocaleTimeString();
+}
+setInterval(updateClock,1000);
+updateClock();
+
+function getWorkout(){
+switch(dayName){
+case "Monday": return "Chest & Core";
+case "Tuesday": return "Leg Day";
+case "Wednesday": return "Core + Burn";
+case "Thursday": return "Upper Body";
+case "Friday": return "HIIT";
+case "Saturday": return "Sprint Day";
+case "Sunday": return "Rest";
+}
+}
+
+function render(){
+let container = document.getElementById("quests");
+container.innerHTML = "";
+
+let list = [
+"2KM Morning Run",
+"High Protein Breakfast",
+"Clean Lunch",
+getWorkout(),
+"10,000+ Steps",
+"Sleep Before 10 PM"
+];
+
+list.forEach(item=>{
+let div = document.createElement("div");
+div.className="quest";
+div.innerHTML = `
+<span>${item}</span>
+<span class="${data[dateKey].completed ? 'complete':'incomplete'}">
+${data[dateKey].completed ? '[COMPLETE]' : '[INCOMPLETE]'}
+</span>`;
+container.appendChild(div);
+});
+}
+
+function completeToday(){
+data[dateKey].completed = true;
+localStorage.setItem("questData",JSON.stringify(data));
+render();
+}
+
+render();
+</script>
+
+</body>
+</html>
